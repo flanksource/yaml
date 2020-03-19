@@ -425,6 +425,12 @@ func (d *decoder) scalar(n *node, out reflect.Value) bool {
 			resolved = string(data)
 		} else if tag == yaml_ENV_TAG {
 			resolved = os.Getenv(resolved.(string))
+		} else if tag == yaml_TEMPLATE_TAG {
+			r, err := RenderTemplate(resolved.(string))
+			if err != nil {
+				failf("!!template value contains invalid template %s", resolved.(string))
+			}
+			resolved = r
 		}
 	}
 	if resolved == nil {
@@ -446,7 +452,7 @@ func (d *decoder) scalar(n *node, out reflect.Value) bool {
 		u, ok := out.Addr().Interface().(encoding.TextUnmarshaler)
 		if ok {
 			var text []byte
-			if tag == yaml_BINARY_TAG || tag == yaml_ENV_TAG {
+			if tag == yaml_BINARY_TAG || tag == yaml_ENV_TAG || tag == yaml_TEMPLATE_TAG {
 				text = []byte(resolved.(string))
 			} else {
 				// We let any value be unmarshaled into TextUnmarshaler.
@@ -463,7 +469,7 @@ func (d *decoder) scalar(n *node, out reflect.Value) bool {
 	}
 	switch out.Kind() {
 	case reflect.String:
-		if tag == yaml_BINARY_TAG || tag == yaml_ENV_TAG {
+		if tag == yaml_BINARY_TAG || tag == yaml_ENV_TAG || tag == yaml_TEMPLATE_TAG {
 			out.SetString(resolved.(string))
 			return true
 		}

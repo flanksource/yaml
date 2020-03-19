@@ -90,7 +90,7 @@ func resolve(tag string, in string) (rtag string, out interface{}) {
 
 	defer func() {
 		switch tag {
-		case "", rtag, yaml_STR_TAG, yaml_BINARY_TAG, yaml_ENV_TAG:
+		case "", rtag, yaml_STR_TAG, yaml_BINARY_TAG, yaml_ENV_TAG, yaml_TEMPLATE_TAG:
 			return
 		case yaml_FLOAT_TAG:
 			if rtag == yaml_INT_TAG {
@@ -115,7 +115,7 @@ func resolve(tag string, in string) (rtag string, out interface{}) {
 	if in != "" {
 		hint = resolveTable[in[0]]
 	}
-	if hint != 0 && tag != yaml_STR_TAG && tag != yaml_BINARY_TAG && tag != yaml_ENV_TAG {
+	if hint != 0 && tag != yaml_STR_TAG && tag != yaml_BINARY_TAG && tag != yaml_ENV_TAG && tag != yaml_TEMPLATE_TAG {
 		// Handle things we can lookup in a map.
 		if item, ok := resolveMap[in]; ok {
 			return item.tag, item.value

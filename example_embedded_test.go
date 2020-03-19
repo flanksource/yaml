@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/exoscale/go-yaml"
+	"github.com/flanksource/go-yaml"
 )
 
 // An example showing how to unmarshal embedded
