@@ -4,12 +4,13 @@ import (
 	"errors"
 	"io"
 	"math"
+	"os"
 	"reflect"
 	"strings"
 	"time"
 
+	yaml "github.com/flanksource/go-yaml"
 	. "gopkg.in/check.v1"
-	"gopkg.in/yaml.v2"
 )
 
 var unmarshalIntTest = 123
@@ -566,6 +567,23 @@ var unmarshalTests = []struct {
 		map[string]string{"a": strings.Repeat("\x00", 52)},
 	},
 
+	// Env vars
+	{
+		"a: !!env TEST_ENV\n",
+		map[string]string{"a": "value_env"},
+	},
+
+	// Templates
+	{
+		"a: !!template '{{ base64.Encode \"hello world\" }}'",
+		map[string]string{"a": "aGVsbG8gd29ybGQ="},
+	},
+
+	{
+		"a: !!template '{{ hello \"world\" }}'",
+		map[string]string{"a": "Hello world"},
+	},
+
 	// Ordered maps.
 	{
 		"{b: 2, a: 1, d: 4, c: 3, sub: {e: 5}}",
@@ -697,7 +715,7 @@ var unmarshalTests = []struct {
 		M{"a": 123456e1},
 	}, {
 		"a: 123456E1\n",
-		M{"a": 123456E1},
+		M{"a": 123456e1},
 	},
 	// yaml-test-suite 3GZX: Spec Example 7.1. Alias Nodes
 	{
@@ -748,6 +766,8 @@ type inlineC struct {
 }
 
 func (s *S) TestUnmarshal(c *C) {
+	defer os.Setenv("TEST_ENV", "")
+	os.Setenv("TEST_ENV", "value_env")
 	for i, item := range unmarshalTests {
 		c.Logf("test %d: %q", i, item.data)
 		t := reflect.ValueOf(item.value).Type()
@@ -775,6 +795,8 @@ func (s *S) TestUnmarshalFullTimestamp(c *C) {
 func (s *S) TestDecoderSingleDocument(c *C) {
 	// Test that Decoder.Decode works as expected on
 	// all the unmarshal tests.
+	defer os.Setenv("TEST_ENV", "")
+	os.Setenv("TEST_ENV", "value_env")
 	for i, item := range unmarshalTests {
 		c.Logf("test %d: %q", i, item.data)
 		if item.data == "" {
@@ -870,14 +892,14 @@ var unmarshalErrorTests = []struct {
 	{"a:\n  1:\nb\n  2:", ".*could not find expected ':'"},
 	{
 		"a: &a [00,00,00,00,00,00,00,00,00]\n" +
-		"b: &b [*a,*a,*a,*a,*a,*a,*a,*a,*a]\n" +
-		"c: &c [*b,*b,*b,*b,*b,*b,*b,*b,*b]\n" +
-		"d: &d [*c,*c,*c,*c,*c,*c,*c,*c,*c]\n" +
-		"e: &e [*d,*d,*d,*d,*d,*d,*d,*d,*d]\n" +
-		"f: &f [*e,*e,*e,*e,*e,*e,*e,*e,*e]\n" +
-		"g: &g [*f,*f,*f,*f,*f,*f,*f,*f,*f]\n" +
-		"h: &h [*g,*g,*g,*g,*g,*g,*g,*g,*g]\n" +
-		"i: &i [*h,*h,*h,*h,*h,*h,*h,*h,*h]\n",
+			"b: &b [*a,*a,*a,*a,*a,*a,*a,*a,*a]\n" +
+			"c: &c [*b,*b,*b,*b,*b,*b,*b,*b,*b]\n" +
+			"d: &d [*c,*c,*c,*c,*c,*c,*c,*c,*c]\n" +
+			"e: &e [*d,*d,*d,*d,*d,*d,*d,*d,*d]\n" +
+			"f: &f [*e,*e,*e,*e,*e,*e,*e,*e,*e]\n" +
+			"g: &g [*f,*f,*f,*f,*f,*f,*f,*f,*f]\n" +
+			"h: &h [*g,*g,*g,*g,*g,*g,*g,*g,*g]\n" +
+			"i: &i [*h,*h,*h,*h,*h,*h,*h,*h,*h]\n",
 		"yaml: document contains excessive aliasing",
 	},
 }

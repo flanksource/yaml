@@ -11,8 +11,9 @@ import (
 	"net"
 	"os"
 
+	"github.com/flanksource/go-yaml"
+
 	. "gopkg.in/check.v1"
-	"gopkg.in/yaml.v2"
 )
 
 type jsonNumberT string
