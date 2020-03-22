@@ -1,4 +1,4 @@
-module github.com/flanksource/go-yaml
+module github.com/flanksource/yaml
 
 require (
 	github.com/Masterminds/goutils v1.1.0 // indirect
@@ -18,7 +18,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/smartystreets/goconvey v1.6.4 // indirect
 	github.com/spf13/afero v1.2.2 // indirect
-	github.com/ugorji/go/codec v1.1.7 // indirect
+	github.com/ugorji/go v1.1.7 // indirect
 	github.com/zealic/xignore v0.3.3 // indirect
 	golang.org/x/crypto v0.0.0-20200317142112-1b76d66859c6 // indirect
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15

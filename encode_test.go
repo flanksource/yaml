@@ -11,7 +11,7 @@ import (
 	"net"
 	"os"
 
-	"github.com/flanksource/go-yaml"
+	"github.com/flanksource/yaml"
 
 	. "gopkg.in/check.v1"
 )

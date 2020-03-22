@@ -3,7 +3,7 @@ package yaml_test
 import (
 	"fmt"
 
-	yaml "github.com/flanksource/go-yaml"
+	yaml "github.com/flanksource/yaml"
 	. "gopkg.in/check.v1"
 )
 
