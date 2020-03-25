@@ -78,6 +78,8 @@ const (
 	mapTag       = "!!map"
 	binaryTag    = "!!binary"
 	mergeTag     = "!!merge"
+	envTag       = "!!env"
+	templateTag  = "!!template"
 )
 
 var longTags = make(map[string]string)
@@ -131,7 +133,7 @@ func resolve(tag string, in string) (rtag string, out interface{}) {
 
 	defer func() {
 		switch tag {
-		case "", rtag, strTag, binaryTag:
+		case "", rtag, strTag, binaryTag, envTag, templateTag:
 			return
 		case floatTag:
 			if rtag == intTag {
@@ -156,7 +158,7 @@ func resolve(tag string, in string) (rtag string, out interface{}) {
 	if in != "" {
 		hint = resolveTable[in[0]]
 	}
-	if hint != 0 && tag != strTag && tag != binaryTag {
+	if hint != 0 && tag != strTag && tag != binaryTag && tag != envTag && tag != templateTag {
 		// Handle things we can lookup in a map.
 		if item, ok := resolveMap[in]; ok {
 			return item.tag, item.value

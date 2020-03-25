@@ -18,12 +18,12 @@ package yaml_test
 import (
 	"bytes"
 	"fmt"
-	"os"
-
-	. "gopkg.in/check.v1"
-	"gopkg.in/yaml.v3"
 	"io"
+	"os"
 	"strings"
+
+	"github.com/flanksource/yaml"
+	. "gopkg.in/check.v1"
 )
 
 var nodeTests = []struct {
@@ -950,9 +950,9 @@ var nodeTests = []struct {
 	}, {
 		"- la # IA\n- lb # IB\n- lc # IC\n",
 		yaml.Node{
-			Kind:        yaml.DocumentNode,
-			Line:        1,
-			Column:      1,
+			Kind:   yaml.DocumentNode,
+			Line:   1,
+			Column: 1,
 			Content: []*yaml.Node{{
 				Kind:   yaml.SequenceNode,
 				Tag:    "!!seq",
@@ -985,9 +985,9 @@ var nodeTests = []struct {
 	}, {
 		"# DH1\n\n# HL1\n- - la\n  # HB1\n  - lb\n",
 		yaml.Node{
-			Kind:   yaml.DocumentNode,
-			Line:   4,
-			Column: 1,
+			Kind:        yaml.DocumentNode,
+			Line:        4,
+			Column:      1,
 			HeadComment: "# DH1",
 			Content: []*yaml.Node{{
 				Kind:   yaml.SequenceNode,
@@ -1020,9 +1020,9 @@ var nodeTests = []struct {
 	}, {
 		"# DH1\n\n# HL1\n- # HA1\n  - la\n  # HB1\n  - lb\n",
 		yaml.Node{
-			Kind:   yaml.DocumentNode,
-			Line:   4,
-			Column: 1,
+			Kind:        yaml.DocumentNode,
+			Line:        4,
+			Column:      1,
 			HeadComment: "# DH1",
 			Content: []*yaml.Node{{
 				Kind:   yaml.SequenceNode,
@@ -1036,11 +1036,11 @@ var nodeTests = []struct {
 					Column:      3,
 					HeadComment: "# HL1",
 					Content: []*yaml.Node{{
-						Kind:   yaml.ScalarNode,
-						Tag:    "!!str",
-						Line:   5,
-						Column: 5,
-						Value:  "la",
+						Kind:        yaml.ScalarNode,
+						Tag:         "!!str",
+						Line:        5,
+						Column:      5,
+						Value:       "la",
 						HeadComment: "# HA1",
 					}, {
 						Kind:        yaml.ScalarNode,
@@ -1056,9 +1056,9 @@ var nodeTests = []struct {
 	}, {
 		"[decode]# DH1\n\n# HL1\n- # HA1\n\n  - la\n  # HB1\n  - lb\n",
 		yaml.Node{
-			Kind:   yaml.DocumentNode,
-			Line:   4,
-			Column: 1,
+			Kind:        yaml.DocumentNode,
+			Line:        4,
+			Column:      1,
 			HeadComment: "# DH1",
 			Content: []*yaml.Node{{
 				Kind:   yaml.SequenceNode,

@@ -347,8 +347,10 @@ const (
 	yaml_MAP_TAG = "tag:yaml.org,2002:map" // The tag !!map is used to denote mapping.
 
 	// Not in original libyaml.
-	yaml_BINARY_TAG = "tag:yaml.org,2002:binary"
-	yaml_MERGE_TAG  = "tag:yaml.org,2002:merge"
+	yaml_BINARY_TAG   = "tag:yaml.org,2002:binary"
+	yaml_MERGE_TAG    = "tag:yaml.org,2002:merge"
+	yaml_ENV_TAG      = "tag:yaml.org,202:env"
+	yaml_TEMPLATE_TAG = "tag:yaml.org,202:template"
 
 	yaml_DEFAULT_SCALAR_TAG   = yaml_STR_TAG // The default scalar tag is !!str.
 	yaml_DEFAULT_SEQUENCE_TAG = yaml_SEQ_TAG // The default sequence tag is !!seq.
@@ -639,7 +641,6 @@ type yaml_parser_t struct {
 }
 
 type yaml_comment_t struct {
-
 	scan_mark  yaml_mark_t // Position where scanning for comments started
 	token_mark yaml_mark_t // Position after which tokens will be associated with this comment
 	start_mark yaml_mark_t // Position of '#' comment mark
