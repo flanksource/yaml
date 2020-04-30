@@ -1,4 +1,4 @@
-module github.com/flanksource/yaml
+module github.com/flanksource/yaml.v3
 
 require (
 	github.com/Masterminds/goutils v1.1.0 // indirect
