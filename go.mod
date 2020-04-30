@@ -1,4 +1,4 @@
-module gopkg.in/yaml.v3
+module gopkg.in/flanksource/yaml.v3
 
 require (
 	github.com/Masterminds/goutils v1.1.0 // indirect
