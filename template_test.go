@@ -3,8 +3,8 @@ package yaml_test
 import (
 	"fmt"
 
-	"github.com/flanksource/yaml"
 	. "gopkg.in/check.v1"
+	"gopkg.in/flanksource/yaml.v3"
 )
 
 func init() {

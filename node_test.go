@@ -22,8 +22,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/flanksource/yaml"
 	. "gopkg.in/check.v1"
+	"gopkg.in/flanksource/yaml.v3"
 )
 
 var nodeTests = []struct {

@@ -19,7 +19,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/flanksource/yaml"
+	"gopkg.in/flanksource/yaml.v3"
 )
 
 // An example showing how to unmarshal embedded

@@ -6,7 +6,7 @@ import (
 	"strings"
 	gotemplate "text/template"
 
-	"github.com/hairyhenderson/gomplate"
+	"github.com/hairyhenderson/gomplate/v3"
 	"github.com/pkg/errors"
 )
 

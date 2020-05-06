@@ -26,8 +26,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/flanksource/yaml"
 	. "gopkg.in/check.v1"
+	"gopkg.in/flanksource/yaml.v3"
 )
 
 var unmarshalIntTest = 123
@@ -1400,7 +1400,7 @@ longTag:
   label: center/big
 
 inlineMap:
-  # Inlined map 
+  # Inlined map
   << : {"x": 1, "y": 2, "r": 10}
   label: center/big
 
