@@ -9,7 +9,7 @@
 
 2. Use the custom `!!env` and `!!template` tags anywhere in your YAML and they will be replaced by the parser
 
-```
+```yaml
  ami_name: !!template image-builder-{{ (time.Now).Format "2006-01-02-150405" }}
  eula: !!template {{file.ReadFile \"eula.txt\" }}
  access_key: !!env AWS_ACCESS_KEY_ID
