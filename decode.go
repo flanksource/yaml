@@ -24,6 +24,7 @@ import (
 	"os"
 	"reflect"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -549,7 +550,7 @@ func (d *decoder) scalar(n *Node, out reflect.Value) bool {
 			}
 			resolved = string(data)
 		} else if tag == envTag {
-			resolved = os.Getenv(resolved.(string))
+			resolved = strings.Trim(os.Getenv(resolved.(string)),"\"")
 		} else if tag == templateTag {
 			r, err := RenderTemplate(resolved.(string))
 			if err != nil {
